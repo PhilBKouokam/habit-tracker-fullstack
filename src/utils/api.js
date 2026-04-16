@@ -17,7 +17,9 @@ export const apiFetch = async (url, options = {}) => {
         },
     };
 
-    const fullUrl = url.startsWith('http') ? url : `${API_BASE_URL}${url}`;
+    const fullUrl = url.startsWith('http') 
+        ? url 
+        : `${API_BASE_URL}${url.startsWith('/') ? '' : '/'}${url}`;
 
     const response = await fetch(fullUrl, config);
 

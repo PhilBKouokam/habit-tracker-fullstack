@@ -29,7 +29,7 @@ const connectDB = async () => {
 
 // Connect before starting server
 connectDB().then(() => {
-    app.use("api/auth", authRoutes);
+    app.use("/api/auth", authRoutes);
     app.use("/api/habits", habitRoutes);
 
     const PORT = process.env.PORT || 4500;
