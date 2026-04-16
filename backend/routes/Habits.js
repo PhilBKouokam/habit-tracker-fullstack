@@ -19,6 +19,8 @@ router.get("/", async (req, res) => {
 
 // POST - Create new habit
 router.post("/", async (req, res) => {
+    console.log("Current Mongoose connection state:", mongoose.connection.readyState);
+    // 0 = disconnected, 1 = connected, 2 = connecting, 3 = disconnecting
   try {
     console.log("Received habit data:", req.body);
 
