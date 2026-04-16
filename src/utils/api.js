@@ -1,6 +1,6 @@
 import { AuthContext } from "../context/AuthContext";
 
-const API_BSE_URL = import.meta.env.MODE === 'development'
+const API_BASE_URL = import.meta.env.MODE === 'development'
     ? 'http://localhost:4500'
     : 'https://habit-tracker-fullstack-6ppy.onrender.com';
 
