@@ -9,6 +9,7 @@ import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
 
 import './App.css'
+import { apiFetch } from './utils/api.js'
 
 function App() {
   const { user, loading, logout } = useContext(AuthContext);
@@ -20,7 +21,7 @@ function App() {
 
     async function loadHabits() {
       try {
-        const res = await fetch("/api/habits", {
+        const res = await apiFetch("/api/habits", {
           headers: {
             "Authorization": `Bearer ${user.token}`
           }
