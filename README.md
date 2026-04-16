@@ -2,7 +2,7 @@
 
 A clean, modern habit tracking app with user authentication. Built to demonstrate full-stack development skills with the MERN stack.
 
-![App Screenshot](screenshots/dashboard.png)
+![App Screenshot](screenshots/add-habit.png)
 
 ## ✨ Features
 
@@ -25,8 +25,9 @@ A clean, modern habit tracking app with user authentication. Built to demonstrat
 ## 📸 Screenshots
 
 ![Login Page](screenshots/login.png)
-![Dashboard](screenshots/dashboard.png)
+![Register Page](screenshots/register.png)
 ![Add Habit](screenshots/add-habit.png)
+![Habit List](screenshots/habit-list.png)
 
 ## 🏃 How to Run Locally
 
@@ -42,9 +43,13 @@ cd frontend
 npm install
 npm run dev
 
-📌 Key Learnings / Challenges Overcome
+📌 What I Learned
 
-Implemented secure JWT authentication with protected routes
-Connected React frontend with Node.js backend using proper API calls
-Managed global state with React Context for authentication
-Handled async operations, error states, and loading indicators
+Building a full-stack application with separate frontend and backend
+Implementing JWT-based authentication and protected routes
+Connecting React frontend to a Node.js + MongoDB backend
+Managing global authentication state with React Context
+Handling async operations, error states, and loading indicators
+
+📄 License
+MIT

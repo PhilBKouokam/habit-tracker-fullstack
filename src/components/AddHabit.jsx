@@ -52,7 +52,7 @@ function AddHabit({ habits, setHabits }) {
         };
 
         try {
-            const res = await apiFetch("http://localhost:4500/api/habits", {
+            const res = await apiFetch("/api/habits", {
                 method: "POST",
                 body: JSON.stringify(habit)
             });
@@ -95,6 +95,7 @@ function AddHabit({ habits, setHabits }) {
                         placeholder="Enter a habit"
                         value={habitName}
                         onChange={(e) => setHabitName(e.target.value)}
+                        disabled={loading}
                     />
 
                     <button
@@ -102,7 +103,7 @@ function AddHabit({ habits, setHabits }) {
                         onClick={handleAddHabit}
                         disabled={loading}
                     >
-                        {loading ? "Adding..." : "Add"}
+                        {loading ? "Adding Habit..." : "Add"}
                     </button>
                 </div>
 

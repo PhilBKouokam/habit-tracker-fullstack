@@ -5,11 +5,11 @@ function ShowList({ habits, setHabits }) {
     const [loadingId, setLoadingId] = useState(null);
 
     async function deleteHabit(id) {
-        if (!window.confirm("Delete this habit?")) return;
+        if (!window.confirm("Are you sure you want to delete this habit?")) return;
 
         setLoadingId(id);
         try {
-            const res = await apiFetch(`http://localhost:4500/api/habits/${id}`, {
+            const res = await apiFetch(`/api/habits/${id}`, {
                 method: "DELETE"
             });
 
@@ -32,7 +32,7 @@ function ShowList({ habits, setHabits }) {
     async function toggleComplete(id, currentStatus) {
         setLoadingId(id);
         try {
-            const res = await apiFetch(`http://localhost:4500/api/habits/${id}`, {
+            const res = await apiFetch(`/api/habits/${id}`, {
                 method: "PATCH",
                 body: JSON.stringify({ 
                     completed: !currentStatus,
@@ -56,65 +56,26 @@ function ShowList({ habits, setHabits }) {
         }
     };
 
-    async function markComplete(id) {
-        const res = await apiFetch(`http://localhost:4500/api/habits/${id}`, {
-            method: "PATCH",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ completed: true, dateCompleted: new Date().toISOString() })
-        })
-
-        if (!res.ok) {
-            console.log("Failed to update habit");
-            return;
-        }
-
-        const updatedHabit = await res.json();
-        console.log("Updating habit...");
-        setHabits(prev => prev.map(habit => 
-            habit._id === updatedHabit._id ? updatedHabit : habit
-        ));
-    }
-
-    async function markUncomplete(id) {
-        const res = await apiFetch(`http://localhost:4500/api/habits/${id}`, {
-            method: "PATCH",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ completed: false, dateCompleted: null })
-        })
-
-        if (!res.ok) {
-            console.log("Failed to update habit");
-            return;
-        }
-
-        const updatedHabit = await res.json();
-        console.log("Updating habit...");
-        setHabits(prev =>
-            prev.map(habit =>
-                habit._id === updatedHabit._id 
-                    ? updatedHabit 
-                    : habit
-            )
-        );
-    }
-
     return (
         <div className="container mt-5">
             <div className="card shadow p-4">
                 <h2 className="mb-4 text-center">Your Habits</h2>
 
                 {(!habits || habits.length === 0) && (
-                    <p className="text-muted text-center">No habits yet. Start building one 🚀</p>
+                    <p className="text-muted text-center fs-5 py-5">
+                        No habits yet. Start building one 🚀
+                    </p>
                 )}
 
                 {habits.length > 0 && (
-                    <ul className="list-group">
+                    <ul className="list-group list-group-flush">
                         {habits.map(habit => (
-                            <li key={habit._id} className="list-group-item d-flex justify-content-between align-items-center">
+                            <li key={habit._id} className="list-group-item d-flex justify-content-between align-items-center py-3">
                                 <span 
                                     style={{ 
                                         textDecoration: habit.completed ? "line-through" : "none",
-                                        fontWeight: "500"
+                                        fontWeight: "500",
+                                        fontSize: "1.1rem"
                                     }}
                                 >
                                     {habit.habitName}
@@ -122,7 +83,7 @@ function ShowList({ habits, setHabits }) {
 
                                 <div className="d-flex gap-2">
                                     <button 
-                                        className="btn btn-danger btn-sm me-2" 
+                                        className="btn btn-danger btn-sm" 
                                         onClick={() => deleteHabit(habit._id)}
                                         disabled={loadingId === habit._id}
                                     >
