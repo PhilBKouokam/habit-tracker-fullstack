@@ -1,6 +1,10 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { apiFetch } from "../utils/api";
+import { AuthContext } from "../context/AuthContext";
 
 function AddHabit({ habits, setHabits }) {
+    const { user } = useContext(AuthContext);
+
     const [habitName, setHabitName] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
@@ -10,6 +14,15 @@ function AddHabit({ habits, setHabits }) {
         setError("");
         setSuccess("");
         setLoading(true);
+
+        if (!user || !user.id) {
+            setError("You must be logged in to add habits");
+            setTimeout(() => {
+                setError("")
+            }, 2000);
+            setLoading(false);
+            return;
+        }
 
         if (!habitName.trim()) {
             setLoading(false);
@@ -34,13 +47,13 @@ function AddHabit({ habits, setHabits }) {
             habitName: habitName.trim(),
             completed: false,
             dateAdded: new Date().toISOString(),
-            dateCompleted: null
-        }
+            dateCompleted: null,
+            user: user.id // <- Send the logged-in user ID
+        };
 
         try {
-            const res = await fetch("http://localhost:4500/habits", {
+            const res = await apiFetch("http://localhost:4500/api/habits", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(habit)
             });
 
@@ -60,7 +73,9 @@ function AddHabit({ habits, setHabits }) {
             setTimeout(() => {
                 setSuccess("");
             }, 2000);
+
         } catch (err) {
+            console.error("Add habit error:", err);
             setError("Network error. Please try again.");
             setTimeout(() => setError(""), 2000);
         } finally {
