@@ -9,7 +9,7 @@ function ShowList({ habits, setHabits }) {
 
         setLoadingId(id);
         try {
-            const res = await apiFetch(`/api/habits/${id}`, {
+            const res = await apiFetch(`http://localhost:4500/api/habits/${id}`, {
                 method: "DELETE"
             });
 
