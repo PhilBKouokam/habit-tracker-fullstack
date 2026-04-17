@@ -21,14 +21,19 @@ export const apiFetch = async (url, options = {}) => {
         ? url 
         : `${API_BASE_URL}${url.startsWith('/') ? '' : '/'}${url}`;
 
-    const response = await fetch(fullUrl, config);
+    try {
+        const response = await fetch(fullUrl, config);
 
-    if (response.status === 401) {
-        // Token expired or invalid -> logout
-        localStorage.removeItem('token');
-        window.location.href = '/login';
-        return;
+        if (response.status === 401) {
+            // Token expired or invalid -> logout
+            localStorage.removeItem('token');
+            window.location.href = '/login';
+            return;
+        }
+
+        return response;
+    } catch (error) {
+        console.error('API Fetch Error:', error);
+        throw error;
     }
-
-    return response;
 };

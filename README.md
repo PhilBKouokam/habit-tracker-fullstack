@@ -20,7 +20,9 @@ A clean, modern habit tracking app with user authentication. Built to demonstrat
 **Authentication:** JWT + bcryptjs
 
 ## 🚀 Live Demo
-[View Live Demo](your-vercel-link-here)   ← We'll add this after deployment
+
+- **Frontend**: https://habit-tracker-fullstack-ten.vercel.app
+- **Backend API**: https://habit-tracker-fullstack-6ppy.onrender.com
 
 ## 📸 Screenshots
 
