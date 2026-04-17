@@ -21,7 +21,7 @@ function App() {
 
     async function loadHabits() {
       try {
-        const res = await apiFetch("/api/habits", {
+        const res = await fetch("http://localhost:4500/api/habits", {
           headers: {
             "Authorization": `Bearer ${user.token}`
           }
