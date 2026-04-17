@@ -46,10 +46,15 @@ router.post("/", async (req, res) => {
 
 router.patch("/:id", async (req, res) => {
     try {
-        const updated = await Habit.findOneAndUpdate(
-            { _id: req.params.id, user: req.user.userId },
-            req.body,
-            { new: true }
+        const { completed, dateCompleted } = req.body;
+
+        const updated = await Habit.findByIdAndUpdate(
+            req.params.id, 
+            {
+                completed,
+                dateCompleted
+            },
+            { new: true, returnDocument: 'after' }
         );
 
         if (!updated) {
@@ -58,7 +63,11 @@ router.patch("/:id", async (req, res) => {
 
         res.json(updated);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        console.error("Error updating habit:", err);
+        res.status(500).json({ 
+            message: "Failed to update habit",
+            error: err.message 
+        });
     }
 });
 
